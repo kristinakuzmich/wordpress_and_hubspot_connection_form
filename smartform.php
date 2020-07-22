@@ -2,7 +2,7 @@
 
 /*
   Plugin Name: Custom Submit
-  Plugin URI: https://github.com/kristinakuzmich/sapui5
+  Plugin URI: https://github.com/kristinakuzmich/wordpress_and_hubspot_connection_form/blob/master/smartform.php
   Description: Custom form with fields
   Version: 1.0
   Author: Kristina Kuzmich
@@ -26,7 +26,7 @@
     }
     </style>
     ';
- 
+
     echo '
     <form id="contact" action="" onsubmit="validateMyForm(this); event.preventDefault();" method="post">
      
@@ -39,7 +39,6 @@
     <label for="lastname">Last Name</label>
     <input type="text" name="lname" value="' . ( isset( $_POST['lname']) ? $last_name : null ) . '">
     </div>
-
     <div>
     <label for="email">Email </label>
     <input type="text" name="email" value="' . ( isset( $_POST['email']) ? $email : null ) . '">
@@ -58,7 +57,21 @@
     <input type="submit" name="submit" value="Send"/>
     </form>
     ';
-}
+
+	 $sub = $_POST['subject'];
+	 $mes = $_POST['message'];
+	 $sub = htmlspecialchars($sub);
+	 $mes = htmlspecialchars($mes);
+	 $sub = urldecode($sub);
+	 $mes = urldecode($mes);
+	 $sub = trim($sub);
+	 $mes = trim($mes);
+	 if(mail("kristina.kuzmich.33@mail.ru", "Заявка с сайта","Тема:".$sub."","Сообщение:".$mes." ")){
+	 echo "Сообщение успешно отправлено";
+	 } else {
+	 echo "При отправке сообщения возникли ошибки";
+	 }
+	}
 	
 
 	function form_validation( $first_name, $last_name, $email, $subject, $message )  
